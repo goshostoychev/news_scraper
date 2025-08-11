@@ -1,26 +1,26 @@
 # news_scraper
 
-This Python-based web scraper and notifier automates the extraction and delivery of news articles from a specified website to a Telegram chat. It combines efficient web scraping techniques with Telegram Bot API integration, designed for reliability, extensibility, and ease of maintenance.
-
-Key highlights:
+This Python-based web scraper and notifier automates the extraction and delivery of news articles from a specified website directly to your Telegram chat. It seamlessly combines efficient web scraping techniques with Telegram Bot API integration, built for reliability, extensibility, and ease of maintenance. 🚀
 
 
-**Web Scraping with BeautifulSoup**:
+Key Highlights:
 
-Utilizes precise CSS selectors to parse HTML and extract article URLs and published dates from complex nested page structures. Custom user-agent headers ensure polite scraping and reduce the chance of being blocked.
+🔍 Web Scraping with BeautifulSoup:
 
-**Idempotent Notification System**:
+Utilizes precise CSS selectors to parse complex HTML structures and extract article URLs along with their published dates. Polite scraping is ensured by custom user-agent headers to minimize the risk of getting blocked.
 
-Maintains a sent_links.json file to track and exclude previously sent URLs, preventing repeated notifications. This state persistence supports incremental scraping across multiple script runs.
+📂 Idempotent Notification System:
 
-**Telegram API Integration**:
+Keeps track of previously sent URLs with a sent_links.json file, preventing duplicate notifications. This persistent state enables smooth incremental scraping across multiple runs.
 
-Sends article updates via Telegram Bot API with message formatting in HTML. Implements a retry mechanism with exponential backoff to enhance message delivery reliability under intermittent network conditions.
+🤖 Telegram API Integration:
 
-**Secure Configuration Management**:
+Sends formatted article updates via the Telegram Bot API using HTML for rich text. Implements a retry mechanism with exponential backoff to guarantee message delivery even under unstable network conditions.
 
-Sensitive credentials (TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID) are loaded securely via environment variables using python-dotenv, avoiding hard-coded secrets and facilitating deployment in different environments.
+🔐 Secure Configuration Management:
 
-**Robust Logging**:
+Loads sensitive Telegram credentials (TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID) securely via environment variables with python-dotenv, avoiding hard-coded secrets and making deployments safer and more flexible.
 
-Logs actions, warnings, and errors with timestamps and UTF-8 encoding to scraper.log, enabling effective debugging and operational auditing.
+📝 Robust Logging:
+
+Logs all important actions, warnings, and errors with timestamps to scraper.log using UTF-8 encoding, providing comprehensive audit trails and simplifying debugging.
