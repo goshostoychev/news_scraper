@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import json
 import logging
 import os
@@ -6,6 +8,7 @@ import time
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
+# Load environment variables from .env file
 load_dotenv()
 
 # Script logging config
@@ -18,8 +21,8 @@ logging.basicConfig(
 )
 
 
+# Get Telegram credentials from environment variables
 def get_credentials():
-    """Get Telegram credentials from environment variables."""
     token = os.getenv('TELEGRAM_BOT_TOKEN')
     chat_id = os.getenv('TELEGRAM_CHAT_ID')
 
@@ -29,8 +32,8 @@ def get_credentials():
     return None, None
 
 
+# Load previously sent URLs from a json file
 def load_sent_links():
-    """Load previously sent URLs from file."""
     if os.path.exists('sent_links.json'):
         try:
             with open('sent_links.json', 'r', encoding='utf-8') as f:
@@ -41,8 +44,8 @@ def load_sent_links():
     return set()
 
 
+# Save updated sent URLs to the json file
 def save_sent_links(sent_links):
-    """Save updated sent URLs to file."""
     try:
         with open('sent_links.json', 'w', encoding='utf-8') as f:
             json.dump(list(sent_links), f, ensure_ascii=False, indent=2)
@@ -50,8 +53,8 @@ def save_sent_links(sent_links):
         logging.error(f"Could not save sent links: {e}")
 
 
+# Send message to Telegram with simple retry
 def send_telegram_message(text, token, chat_id):
-    """Send message to Telegram with simple retry."""
     telegram_url = f'https://api.telegram.org/bot{token}/sendMessage'
     payload = {
         'chat_id': chat_id,
@@ -75,16 +78,14 @@ def send_telegram_message(text, token, chat_id):
     return False
 
 
+# Fetch and parse articles from the website
 def fetch_articles(url):
-    """Fetch and parse articles from the website."""
     try:
-        # Add a proper user agent to avoid being blocked
+        # Add a user agent to avoid being blocked
         headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
         response = requests.get(url, timeout=10, headers=headers)
         response.raise_for_status()
-
         soup = BeautifulSoup(response.text, 'html.parser')
-
         article_links = soup.select(
             'div.submain-articles.after-top-article > ul > li > div.article-title > h2 > a'
         )
@@ -103,7 +104,6 @@ def fetch_articles(url):
                     'link': link,
                     'date': date
                 })
-
         return results
 
     except requests.exceptions.RequestException as e:
@@ -114,7 +114,7 @@ def fetch_articles(url):
 def main():
     logging.info("Script started")
 
-    # Get credentials
+    # Get the Telegram credentials
     telegram_token, telegram_chat_id = get_credentials()
 
     if not telegram_token or not telegram_chat_id:
@@ -150,13 +150,10 @@ def main():
                 time.sleep(1)
             else:
                 logging.error(f"Failed to send article: {link}")
-                break  # Stop if Telegram fails
+                break
         else:
             logging.info(f"Already sent: {link}")
-    if new_articles_sent == 1:
-        logging.info(f"Script completed - sent {new_articles_sent} new article")
-    if new_articles_sent > 1:
-        logging.info(f"Script completed - sent {new_articles_sent} new articles")
+    logging.info(f"Script completed - sent {new_articles_sent} new article{'s' if new_articles_sent > 1 else ''}")
 
 
 if __name__ == "__main__":
