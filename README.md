@@ -24,3 +24,39 @@ Loads sensitive Telegram credentials (TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID) secu
 📝 Robust Logging:
 
 Logs all important actions, warnings, and errors with timestamps to scraper.log using UTF-8 encoding, providing comprehensive audit trails and simplifying debugging.
+
+⚙️⏰ Automating the Scraper with crontab 📰🤖
+
+You can schedule the scraper to run automatically at specific times using cron, which is a job scheduler available on most Unix-like systems including Ubuntu.
+Example Workflow
+    • Reset the sent links file daily at 7:00 AM (optional, if you want to clear the contents of the sent_links.json file).
+    • Run the scraper every hour from 8:00 AM to 8:00 PM, and logging the output for troubleshooting and audit.
+
+1. Shell Script to Run the Scraper
+Create a shell script (e.g., run_scraper.sh) to activate your Python environment and run the scraper:
+#!/bin/bash
+
+# Navigate to your scraper project directory (replace with actual path)
+cd /path/to/your/web_scraper
+
+# Run the scraper using the Python version in your virtual environment
+./.venv/bin/python3.13 app.py
+
+Make sure to give the script execute permissions:
+chmod +x /path/to/run_scraper.sh
+
+
+2. Crontab Entries
+Edit your user’s crontab with:
+crontab -e
+
+
+And add the following lines (replace paths accordingly):
+text
+
+# Reset sent_links.json daily at 7:00 AM (optional)
+0 7 * * * > /full/path/to/sent_links.json
+
+# Run scraper every hour between 8 AM and 8 PM, logging output and errors
+0 8-20 * * * /full/path/to/run_scraper.sh >> /full/path/to/web_scraper_logfile.log 2>&1
+
