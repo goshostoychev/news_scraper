@@ -30,27 +30,27 @@ A Python-based web scraper and notifier that extracts the latest news articles f
 git clone https://github.com/yourusername/news_scraper.git
 cd news_scraper
 
-text
+
 
 2. **Create and activate a virtual environment**:
 
 python3 -m venv .venv
 source .venv/bin/activate
 
-text
+
 
 3. **Install dependencies**:
 
 pip install -r requirements.txt
 
-text
+
 
 4. **Create a `.env` file** in the project root with your Telegram credentials:
 
 TELEGRAM_BOT_TOKEN=your_bot_token_here
 TELEGRAM_CHAT_ID=your_chat_id_here
 
-text
+
 
 ***
 
@@ -60,7 +60,7 @@ Run the scraper manually by executing:
 
 ./.venv/bin/python3.13 app.py
 
-text
+
 
 Make sure your `.env` file is configured properly before running.
 
@@ -80,13 +80,13 @@ Run the scraper with your virtual environment’s Python
 
 ./.venv/bin/python3.13 app.py
 
-text
+
 
 Make the script executable:
 
 chmod +x /path/to/run_scraper.sh
 
-text
+
 
 ### 2. Setup crontab jobs:
 
@@ -94,7 +94,7 @@ Open crontab for editing:
 
 crontab -e
 
-text
+
 
 Add these lines, replacing paths as needed:
 
@@ -105,7 +105,7 @@ Run scraper hourly from 8AM to 8PM, logging output and errors
 
 0 8-20 * * * /full/path/to/run_scraper.sh >> /full/path/to/web_scraper_logfile.log 2>&1
 
-text
+
 
 ***
 
@@ -119,7 +119,7 @@ text
 systemctl status cron
 grep CRON /var/log/syslog
 
-text
+
 
 ***
 
