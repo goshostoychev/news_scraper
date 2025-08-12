@@ -28,6 +28,7 @@ A Python-based web scraper and notifier that extracts the latest news articles f
 1. **Clone this repository**:
 
 git clone https://github.com/yourusername/news_scraper.git
+
 cd news_scraper
 
 
