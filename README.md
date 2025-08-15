@@ -74,9 +74,11 @@ You can automate the scraper to run periodically using `cron`.
 ### 1. Create a shell script `run_scraper.sh`:
 
 #!/bin/bash
+
 Navigate to your scraper directory (replace with your actual path)
 
 cd /path/to/news_scraper
+
 Run the scraper with your virtual environment’s Python
 
 ./.venv/bin/python3.13 app.py
