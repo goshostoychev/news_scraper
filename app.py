@@ -102,9 +102,10 @@ def fetch_articles(url):
             if link and date:
                 results.append({
                     'link': link,
-                    'date': date
+                    'date': date.replace('ч.', '')
                 })
-        return results
+        sorted_results = sorted(results, key=lambda i: i['date'])
+        return sorted_results
 
     except requests.exceptions.RequestException as e:
         logging.error(f"Error fetching articles: {e}")
